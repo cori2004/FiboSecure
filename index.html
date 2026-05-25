@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FiboPass Vault | Gestor educativo de contraseñas</title>
+  <link rel="stylesheet" href="css/estilos.css" />
+</head>
+<body>
+  <header class="hero">
+    <nav class="navbar">
+      <div class="brand">
+        <div class="brand-icon">∞</div>
+        <div>
+          <span>FiboPass</span>
+          <small>Vault educativo</small>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <a href="#vault">Bóveda</a>
+        <a href="#generador">Generador</a>
+        <a href="#seguridad">Seguridad</a>
+      </div>
+    </nav>
+
+    <section class="hero-grid">
+      <div class="hero-copy">
+        <p class="pill">Fibonacci + números primos + seguridad digital</p>
+        <h1>Tu bóveda inteligente de contraseñas</h1>
+        <p>
+          Genera contraseñas fuertes, analiza su nivel de seguridad y organiza tus cuentas por aplicación en una bóveda visual inspirada en gestores modernos como LastPass.
+        </p>
+        <div class="hero-buttons">
+          <a class="btn primary" href="#generador">Generar contraseña</a>
+          <a class="btn secondary" href="#vault">Ver bóveda</a>
+        </div>
+      </div>
+
+      <div class="security-card glass">
+        <div class="card-top">
+          <span class="dot"></span>
+          <span>Estado de seguridad</span>
+        </div>
+        <h2 id="contadorCuentas">0 cuentas</h2>
+        <p id="resumenSeguridad">Agrega contraseñas para analizar tu bóveda.</p>
+        <div class="score-ring">
+          <span id="puntajeGeneral">0%</span>
+        </div>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section class="section" id="contexto">
+      <div class="section-title">
+        <p>Problema real</p>
+        <h2>Las personas usan contraseñas débiles y repetidas</h2>
+      </div>
+      <div class="info-grid">
+        <article class="info-card">
+          <h3>¿Qué resuelve?</h3>
+          <p>Ayuda a crear contraseñas más fuertes y a organizarlas por servicio, reduciendo el uso de claves simples como fechas, nombres o números repetidos.</p>
+        </article>
+        <article class="info-card">
+          <h3>¿Dónde entra Fibonacci?</h3>
+          <p>La serie de Fibonacci se usa para mezclar posiciones y generar patrones numéricos que ayudan a construir contraseñas variables.</p>
+        </article>
+        <article class="info-card">
+          <h3>¿Dónde entran los primos?</h3>
+          <p>Los números primos se usan como valores especiales para reforzar la combinación y para analizar códigos numéricos.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="dashboard section">
+      <aside class="sidebar glass">
+        <h2>Bóveda</h2>
+        <p>Administra cuentas educativas por aplicación.</p>
+
+        <label for="buscador">Buscar cuenta</label>
+        <input type="text" id="buscador" placeholder="Buscar por app o usuario" />
+
+        <label for="filtroCategoria">Categoría</label>
+        <select id="filtroCategoria">
+          <option value="Todas">Todas</option>
+          <option value="Correo">Correo</option>
+          <option value="Red social">Red social</option>
+          <option value="Banco">Banco</option>
+          <option value="Educación">Educación</option>
+          <option value="Trabajo">Trabajo</option>
+          <option value="Otro">Otro</option>
+        </select>
+
+        <button class="btn danger" id="bloquearBtn" type="button">Bloquear bóveda</button>
+        <button class="btn secondary full" id="limpiarBtn" type="button">Eliminar datos de prueba</button>
+      </aside>
+
+      <section class="vault-panel glass" id="vault">
+        <div class="panel-header">
+          <div>
+            <p>Mis aplicaciones</p>
+            <h2>Contraseñas guardadas</h2>
+          </div>
+          <button class="btn primary" id="abrirFormularioBtn" type="button">+ Nueva cuenta</button>
+        </div>
+
+        <div class="apps-strip" id="appsStrip"></div>
+        <div class="vault-list" id="listaCuentas"></div>
+      </section>
+    </section>
+
+    <section class="section two-columns" id="generador">
+      <div class="generator glass">
+        <div class="section-title left">
+          <p>Generador</p>
+          <h2>Crear contraseña fuerte</h2>
+        </div>
+
+        <form id="formGenerador">
+          <div class="form-grid">
+            <div>
+              <label for="palabraBase">Palabra base</label>
+              <input type="text" id="palabraBase" placeholder="Ej: estudiante" required />
+            </div>
+            <div>
+              <label for="numeroBase">Número base</label>
+              <input type="number" id="numeroBase" min="1" placeholder="Ej: 17" required />
+            </div>
+            <div>
+              <label for="longitud">Longitud</label>
+              <input type="number" id="longitud" min="8" max="32" value="16" required />
+            </div>
+            <div>
+              <label for="terminosFibo">Términos Fibonacci</label>
+              <input type="number" id="terminosFibo" min="5" max="20" value="10" required />
+            </div>
+          </div>
+
+          <div class="checks">
+            <label><input type="checkbox" id="usarMayus" checked /> Mayúsculas</label>
+            <label><input type="checkbox" id="usarMinus" checked /> Minúsculas</label>
+            <label><input type="checkbox" id="usarNumeros" checked /> Números</label>
+            <label><input type="checkbox" id="usarSimbolos" checked /> Símbolos</label>
+          </div>
+
+          <button class="btn primary full" type="submit">Generar contraseña</button>
+        </form>
+
+        <div class="password-output">
+          <label for="passwordGenerada">Contraseña generada</label>
+          <div class="copy-row">
+            <input type="text" id="passwordGenerada" readonly placeholder="Aquí aparecerá tu contraseña" />
+            <button class="btn secondary" id="copiarGeneradaBtn" type="button">Copiar</button>
+          </div>
+          <div class="strength">
+            <div class="strength-bar"><span id="barraFuerza"></span></div>
+            <strong id="nivelFuerza">Sin analizar</strong>
+          </div>
+          <p id="detalleAlgoritmo" class="small-note"></p>
+        </div>
+      </div>
+
+      <div class="checker glass" id="seguridad">
+        <div class="section-title left">
+          <p>Analizador</p>
+          <h2>¿Qué tan segura es?</h2>
+        </div>
+        <form id="formAnalizador">
+          <label for="passwordAnalizar">Ingresa una contraseña</label>
+          <input type="text" id="passwordAnalizar" placeholder="Escribe o pega una contraseña" />
+          <button class="btn secondary full" type="submit">Analizar seguridad</button>
+        </form>
+        <div class="analysis-box" id="resultadoAnalisis">El resultado aparecerá aquí.</div>
+      </div>
+    </section>
+
+    <section class="section conclusion">
+      <div class="glass conclusion-card">
+        <h2>Conclusión</h2>
+        <p>
+          Las matemáticas ayudan a resolver problemas reales de seguridad digital. Fibonacci permite generar patrones progresivos y los números primos refuerzan la lógica de códigos más difíciles de predecir. Esta página demuestra cómo HTML, CSS y JavaScript pueden convertir estos conceptos en una solución interactiva.
+        </p>
+        <div class="links-box">
+          <p><strong>Repositorio Git:</strong> agregar enlace aquí.</p>
+          <p><strong>Página publicada:</strong> agregar enlace aquí.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="modalCuenta">
+    <div class="modal-content glass">
+      <div class="modal-header">
+        <h2>Nueva cuenta</h2>
+        <button id="cerrarModalBtn" type="button">×</button>
+      </div>
+      <form id="formCuenta">
+        <label for="appCuenta">Aplicación o servicio</label>
+        <select id="appCuenta" required>
+          <option value="Google">Google</option>
+          <option value="Facebook">Facebook</option>
+          <option value="Instagram">Instagram</option>
+          <option value="TikTok">TikTok</option>
+          <option value="WhatsApp">WhatsApp</option>
+          <option value="GitHub">GitHub</option>
+          <option value="Banco">Banco</option>
+          <option value="Classroom">Classroom</option>
+          <option value="Outlook">Outlook</option>
+          <option value="Netflix">Netflix</option>
+          <option value="Otro">Otro</option>
+        </select>
+
+        <label for="categoriaCuenta">Categoría</label>
+        <select id="categoriaCuenta" required>
+          <option value="Correo">Correo</option>
+          <option value="Red social">Red social</option>
+          <option value="Banco">Banco</option>
+          <option value="Educación">Educación</option>
+          <option value="Trabajo">Trabajo</option>
+          <option value="Otro">Otro</option>
+        </select>
+
+        <label for="usuarioCuenta">Usuario o correo</label>
+        <input type="text" id="usuarioCuenta" placeholder="correo@ejemplo.com" required />
+
+        <label for="passwordCuenta">Contraseña</label>
+        <div class="copy-row">
+          <input type="password" id="passwordCuenta" placeholder="Contraseña" required />
+          <button class="btn secondary" id="usarGeneradaBtn" type="button">Usar generada</button>
+        </div>
+
+        <label for="notaCuenta">Nota</label>
+        <textarea id="notaCuenta" placeholder="Ej: cuenta de estudio, cuenta personal..."></textarea>
+
+        <button class="btn primary full" type="submit">Guardar en bóveda</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="lock-screen" id="lockScreen">
+    <div class="lock-card glass">
+      <div class="brand center">
+        <div class="brand-icon">∞</div>
+        <div>
+          <span>FiboPass</span>
+          <small>Acceso a bóveda</small>
+        </div>
+      </div>
+      <h1>Desbloquear bóveda</h1>
+      <p>Ingresa una clave maestra de prueba para acceder. Proyecto educativo: no guardar contraseñas reales.</p>
+      <input type="password" id="claveMaestra" placeholder="Clave maestra" />
+      <button class="btn primary full" id="desbloquearBtn" type="button">Entrar</button>
+      <small id="mensajeBloqueo"></small>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
